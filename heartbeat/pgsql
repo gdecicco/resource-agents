@@ -111,9 +111,7 @@ OCF_RESKEY_replication_slot_name_default=""
 usage() {
     cat <<EOF
         usage: $0 start|stop|status|monitor|promote|demote|notify|meta-data|validate-all|methods
-
         $0 manages a PostgreSQL Server as an HA resource.
-
         The 'start' operation starts the PostgreSQL server.
         The 'stop' operation stops the PostgreSQL server.
         The 'status' operation reports whether the PostgreSQL is up.
@@ -132,12 +130,10 @@ meta_data() {
 <!DOCTYPE resource-agent SYSTEM "ra-api-1.dtd">
 <resource-agent name="pgsql">
 <version>1.0</version>
-
 <longdesc lang="en">
 Resource script for PostgreSQL. It manages a PostgreSQL as an HA resource.
 </longdesc>
 <shortdesc lang="en">Manages a PostgreSQL database instance</shortdesc>
-
 <parameters>
 <parameter name="pgctl" unique="0" required="0">
 <longdesc lang="en">
@@ -146,14 +142,12 @@ Path to pg_ctl command.
 <shortdesc lang="en">pgctl</shortdesc>
 <content type="string" default="${OCF_RESKEY_pgctl_default}" />
 </parameter>
-
 <parameter name="start_opt" unique="0" required="0">
 <longdesc lang="en">
 Start options (-o start_opt in pg_ctl). "-i -p 5432" for example.
 </longdesc>
 <shortdesc lang="en">start_opt</shortdesc>
 <content type="string" default="${OCF_RESKEY_start_opt_default}" />
-
 </parameter>
 <parameter name="ctl_opt" unique="0" required="0">
 <longdesc lang="en">
@@ -162,7 +156,6 @@ Additional pg_ctl options (-w, -W etc..).
 <shortdesc lang="en">ctl_opt</shortdesc>
 <content type="string" default="${OCF_RESKEY_ctl_opt_default}" />
 </parameter>
-
 <parameter name="psql" unique="0" required="0">
 <longdesc lang="en">
 Path to psql command.
@@ -170,7 +163,6 @@ Path to psql command.
 <shortdesc lang="en">psql</shortdesc>
 <content type="string" default="${OCF_RESKEY_psql_default}" />
 </parameter>
-
 <parameter name="pgdata" unique="0" required="0">
 <longdesc lang="en">
 Path to PostgreSQL data directory.
@@ -178,7 +170,6 @@ Path to PostgreSQL data directory.
 <shortdesc lang="en">pgdata</shortdesc>
 <content type="string" default="${OCF_RESKEY_pgdata_default}" />
 </parameter>
-
 <parameter name="pgdba" unique="0" required="0">
 <longdesc lang="en">
 User that owns PostgreSQL.
@@ -186,7 +177,6 @@ User that owns PostgreSQL.
 <shortdesc lang="en">pgdba</shortdesc>
 <content type="string" default="${OCF_RESKEY_pgdba_default}" />
 </parameter>
-
 <parameter name="pghost" unique="0" required="0">
 <longdesc lang="en">
 Hostname/IP address where PostgreSQL is listening
@@ -194,7 +184,6 @@ Hostname/IP address where PostgreSQL is listening
 <shortdesc lang="en">pghost</shortdesc>
 <content type="string" default="${OCF_RESKEY_pghost_default}" />
 </parameter>
-
 <parameter name="pgport" unique="0" required="0">
 <longdesc lang="en">
 Port where PostgreSQL is listening
@@ -202,7 +191,6 @@ Port where PostgreSQL is listening
 <shortdesc lang="en">pgport</shortdesc>
 <content type="integer" default="${OCF_RESKEY_pgport_default}" />
 </parameter>
-
 <parameter name="pglibs" unique="0" required="0">
 <longdesc lang="en">
 Custom location of the Postgres libraries. If not set, the standard location
@@ -211,7 +199,6 @@ will be used.
 <shortdesc lang="en">pglibs</shortdesc>
 <content type="string" default="${OCF_RESKEY_pglibs_default}" />
 </parameter>
-
 <parameter name="monitor_user" unique="0" required="0">
 <longdesc lang="en">
 PostgreSQL user that pgsql RA will user for monitor operations. If it's not set
@@ -220,7 +207,6 @@ pgdba user will be used.
 <shortdesc lang="en">monitor_user</shortdesc>
 <content type="string" default="${OCF_RESKEY_monitor_user_default}" />
 </parameter>
-
 <parameter name="monitor_password" unique="0" required="0">
 <longdesc lang="en">
 Password for monitor user.
@@ -228,7 +214,6 @@ Password for monitor user.
 <shortdesc lang="en">monitor_password</shortdesc>
 <content type="string" default="${OCF_RESKEY_monitor_password_default}" />
 </parameter>
-
 <parameter name="monitor_sql" unique="0" required="0">
 <longdesc lang="en">
 SQL script that will be used for monitor operations.
@@ -236,7 +221,6 @@ SQL script that will be used for monitor operations.
 <shortdesc lang="en">monitor_sql</shortdesc>
 <content type="string" default="${OCF_RESKEY_monitor_sql_default}" />
 </parameter>
-
 <parameter name="config" unique="0" required="0">
 <longdesc lang="en">
 Path to the PostgreSQL configuration file for the instance.
@@ -244,7 +228,6 @@ Path to the PostgreSQL configuration file for the instance.
 <shortdesc lang="en">Configuration file</shortdesc>
 <content type="string" default="${OCF_RESKEY_pgdata}/postgresql.conf" />
 </parameter>
-
 <parameter name="pgdb" unique="0" required="0">
 <longdesc lang="en">
 Database that will be used for monitoring.
@@ -252,7 +235,6 @@ Database that will be used for monitoring.
 <shortdesc lang="en">pgdb</shortdesc>
 <content type="string" default="${OCF_RESKEY_pgdb_default}" />
 </parameter>
-
 <parameter name="logfile" unique="0" required="0">
 <longdesc lang="en">
 Path to PostgreSQL server log output file.
@@ -260,17 +242,14 @@ Path to PostgreSQL server log output file.
 <shortdesc lang="en">logfile</shortdesc>
 <content type="string" default="${OCF_RESKEY_logfile_default}" />
 </parameter>
-
 <parameter name="socketdir" unique="0" required="0">
 <longdesc lang="en">
 Unix socket directory for PostgreSQL.
-
 If you use PostgreSQL 9.3 or higher and define unix_socket_directories in the postgresql.conf, then you must set socketdir to determine which directory is used for psql command.
 </longdesc>
 <shortdesc lang="en">socketdir</shortdesc>
 <content type="string" default="" />
 </parameter>
-
 <parameter name="stop_escalate" unique="0" required="0">
 <longdesc lang="en">
 Number of seconds to wait for stop (using -m fast) before resorting to -m immediate
@@ -278,7 +257,6 @@ Number of seconds to wait for stop (using -m fast) before resorting to -m immedi
 <shortdesc lang="en">stop escalation</shortdesc>
 <content type="integer" default="${OCF_RESKEY_stop_escalate_default}" />
 </parameter>
-
 <parameter name="rep_mode" unique="0" required="0">
 <longdesc lang="en">
 Replication mode may be set to "async" or "sync" or "slave".
@@ -286,7 +264,6 @@ They require PostgreSQL 9.1 or later.
 Once set, "async" and "sync" require node_list, master_ip, and
 restore_command parameters,as well as configuring PostgreSQL
 for replication (in postgresql.conf and pg_hba.conf).
-
 "slave" means that RA only makes recovery.conf before starting
 to connect to primary which is running somewhere.
 It dosen't need master/slave setting.
@@ -295,7 +272,6 @@ It requires master_ip restore_command parameters.
 <shortdesc lang="en">rep_mode</shortdesc>
 <content type="string" default="${OCF_RESKEY_rep_mode_default}" />
 </parameter>
-
 <parameter name="node_list" unique="0" required="0">
 <longdesc lang="en">
 All node names. Please separate each node name with a space.
@@ -304,7 +280,6 @@ This is optional for replication. Defaults to all nodes in the cluster
 <shortdesc lang="en">node list</shortdesc>
 <content type="string" default="${OCF_RESKEY_node_list_default}" />
 </parameter>
-
 <parameter name="restore_command" unique="0" required="0">
 <longdesc lang="en">
 restore_command for recovery.conf.
@@ -313,7 +288,6 @@ This is required for replication.
 <shortdesc lang="en">restore_command</shortdesc>
 <content type="string" default="${OCF_RESKEY_restore_command_default}" />
 </parameter>
-
 <parameter name="archive_cleanup_command" unique="0" required="0">
 <longdesc lang="en">
 archive_cleanup_command for recovery.conf.
@@ -322,7 +296,6 @@ This is used for replication and is optional.
 <shortdesc lang="en">archive_cleanup_command</shortdesc>
 <content type="string" default="${OCF_RESKEY_archive_cleanup_command_default}" />
 </parameter>
-
 <parameter name="recovery_end_command" unique="0" required="0">
 <longdesc lang="en">
 recovery_end_command for recovery.conf.
@@ -331,7 +304,6 @@ This is used for replication and is optional.
 <shortdesc lang="en">recovery_end_command</shortdesc>
 <content type="string" default="${OCF_RESKEY_recovery_end_command_default}" />
 </parameter>
-
 <parameter name="master_ip" unique="0" required="0">
 <longdesc lang="en">
 Master's floating IP address to be connected from hot standby.
@@ -341,7 +313,6 @@ This is required for replication.
 <shortdesc lang="en">master ip</shortdesc>
 <content type="string" default="${OCF_RESKEY_master_ip_default}" />
 </parameter>
-
 <parameter name="repuser" unique="0" required="0">
 <longdesc lang="en">
 User used to connect to the master server.
@@ -351,7 +322,6 @@ This is required for replication.
 <shortdesc lang="en">repuser</shortdesc>
 <content type="string" default="${OCF_RESKEY_repuser_default}" />
 </parameter>
-
 <parameter name="primary_conninfo_opt" unique="0" required="0">
 <longdesc lang="en">
 primary_conninfo options of recovery.conf except host, port, user and application_name.
@@ -360,7 +330,6 @@ This is optional for replication.
 <shortdesc lang="en">primary_conninfo_opt</shortdesc>
 <content type="string" default="${OCF_RESKEY_primary_conninfo_opt_default}" />
 </parameter>
-
 <parameter name="restart_on_promote" unique="0" required="0">
 <longdesc lang="en">
 If this is true, RA deletes recovery.conf and restarts PostgreSQL
@@ -371,18 +340,15 @@ This is optional for replication.
 <shortdesc lang="en">restart_on_promote</shortdesc>
 <content type="boolean" default="${OCF_RESKEY_restart_on_promote_default}" />
 </parameter>
-
 <parameter name="replication_slot_name" unique="0" required="0">
 <longdesc lang="en">
 Set this option when using replication slots.
 Can only use lower case letters, numbers and underscore for replication_slot_name.
-
 The replication slots would be created for each node, with the name adding the node name as postfix.
 For example, replication_slot_name is "sample" and 2 slaves which are "node1" and "node2" connect to
 their slots, the slots names are "sample_node1" and "sample_node2".
 If the node name contains a upper case letter, hyphen and dot, those characters will be converted to a lower case letter or an underscore.
 For example, Node-1.example.com to node_1_example_com.
-
 pgsql RA doesn't monitor and delete the repliation slot.
 When the slave node has been disconnected in failure or the like, execute one of the following manually.
 Otherwise it may eventually cause a disk full because the master node will continue to accumulate the unsent WAL.
@@ -393,7 +359,6 @@ $ select pg_drop_replication_slot('replication_slot_name');
 <shortdesc lang="en">replication_slot_name</shortdesc>
 <content type="string" default="${OCF_RESKEY_replication_slot_name_default}" />
 </parameter>
-
 <parameter name="tmpdir" unique="0" required="0">
 <longdesc lang="en">
 Path to temporary directory.
@@ -402,7 +367,6 @@ This is optional for replication.
 <shortdesc lang="en">tmpdir</shortdesc>
 <content type="string" default="${OCF_RESKEY_tmpdir_default}" />
 </parameter>
-
 <parameter name="xlog_check_count" unique="0" required="0">
 <longdesc lang="en">
 Number of checks of xlog on monitor before promote.
@@ -411,7 +375,6 @@ This is optional for replication.
 <shortdesc lang="en">xlog check count</shortdesc>
 <content type="integer" default="${OCF_RESKEY_xlog_check_count_default}" />
 </parameter>
-
 <parameter name="crm_attr_timeout" unique="0" required="0">
 <longdesc lang="en">
 The timeout of crm_attribute forever update command.
@@ -421,7 +384,6 @@ This is optional for replication.
 <shortdesc lang="en">The timeout of crm_attribute forever update command.</shortdesc>
 <content type="integer" default="${OCF_RESKEY_crm_attr_timeout_default}" />
 </parameter>
-
 <parameter name="stop_escalate_in_slave" unique="0" required="0">
 <longdesc lang="en">
 Number of seconds to wait for stop (using -m fast) before resorting to -m immediate
@@ -431,7 +393,6 @@ This is optional for replication.
 <shortdesc lang="en">stop escalation_in_slave</shortdesc>
 <content type="integer" default="${OCF_RESKEY_stop_escalate_in_slave_default}" />
 </parameter>
-
 <parameter name="check_wal_receiver" unique="0" required="0">
 <longdesc lang="en">
 If this is true, RA checks wal_receiver process on monitor
@@ -446,7 +407,6 @@ wal receiver is not running in the master and the attribute shows status as
 <content type="boolean" default="${OCF_RESKEY_check_wal_receiver_default}" />
 </parameter>
 </parameters>
-
 <actions>
 <action name="start" timeout="120" />
 <action name="stop" timeout="120" />
@@ -1131,7 +1091,39 @@ pgsql_notify() {
     esac
     return $OCF_SUCCESS
 }
+#latency
+check_nodes_latency(){
+local flag
+local ping_value
+local GET_SYNCHRONOUS_NODE
+local SYNCHRONOUS_NODE
+GET_SYNCHRONOUS_NODE="SELECT application_name
+                                          FROM pg_stat_replication
+                                            WHERE sync_priority = 1"
 
+SYNCHRONOUS_NODE=`exec_sql "${GET_SYNCHRONOUS_NODE}"`
+
+
+sync_node_latency=$(ping -c 1 $SYNCHRONOUS_NODE | awk -F"=| " 'NR==2 {print $11}')
+l_sync_node_latency=5
+
+
+		ping_value=$(ping -c 1 $1 | awk -F"=| " 'NR==2 {print $11}')
+      ocf_log info "synch node: $SYNCHRONOUS_NODE"
+      ocf_log info "ping_value: $ping_value"
+      ocf_log info "sync_node_latency : $sync_node_latency"
+
+      #if [ \("$ping_value" -lt "$l_sync_node_latency" -a "$flag" != 0 \) ]; then
+      if [ "$SYNCHRONOUS_NODE" = "charlie" ]; then
+					echo "swap"
+          flag=0
+      else
+        echo "foo"
+      fi
+
+
+}
+#latency
 control_slave_status() {
     local rc
     local data_status
@@ -1139,8 +1131,23 @@ control_slave_status() {
     local all_data_status
     local tmp_data_status
     local number_of_nodes
+    local synch_node
+    local synch_node_2
+    local GET_SYNCHRONOUS_NODE
+    local GET_SYNCHRONOUS_NODE_2
+    local node_latency_status
 
+    GET_SYNCHRONOUS_NODE="SELECT application_name
+                                              FROM pg_stat_replication
+                                                WHERE sync_priority = 1"
+    GET_SYNCHRONOUS_NODE_2="SELECT application_name
+                                               FROM pg_stat_replication
+                                              WHERE sync_priority = 2"
+
+    SYNCHRONOUS_NODE=`exec_sql "${GET_SYNCHRONOUS_NODE}"`
+    SYNCHRONOUS_NODE_2=`exec_sql "${GET_SYNCHRONOUS_NODE_2}"`
     all_data_status=`exec_sql "${CHECK_REPLICATION_STATE_SQL}"`
+
     rc=$?
 
     if [ $rc -eq 0 ]; then
@@ -1172,15 +1179,40 @@ control_slave_status() {
 
         case "$data_status" in
             "STREAMING|SYNC")
+            if [ "$target" = "$SYNCHRONOUS_NODE_2" ]; then
+              ocf_log info "target=synchnode2"
+                change_data_status "$target" "STREAMING|ASYNC"
+                change_master_score "$target" "$CAN_NOT_PROMOTE"
+                change_pgsql_status "$target" "HS:async"
+
+                runasowner -q err "echo \"synchronous_standby_names = '\\\"$SYNCHRONOUS_NODE\\\"'\" > \"$REP_MODE_CONF\""
+                [ "$RE_CONTROL_SLAVE" = "false" ] && RE_CONTROL_SLAVE="true"
+                exec_with_retry 0 reload_conf
+                  ocf_log info `cat $REP_MODE_CONF`
+            else
                 change_data_status "$target" "$data_status"
                 change_master_score "$target" "$CAN_PROMOTE"
                 change_pgsql_status "$target" "HS:sync"
+              fi
+
+
                 ;;
             "STREAMING|ASYNC")
                 change_data_status "$target" "$data_status"
                 if [ "$OCF_RESKEY_rep_mode" = "sync" ]; then
+
+                  node_latency_status=$(check_nodes_latency "$target")
+
+                  if [ "$node_latency_status" = "swap" ]; then
+
+                    change_master_score "$target" "$CAN_NOT_PROMOTE"
+
+                    set_sync_mode2 "$target" "$SYNCHRONOUS_NODE"
+
+                  else
                     change_master_score "$target" "$CAN_NOT_PROMOTE"
                     set_sync_mode "$target"
+                  fi
                 else
                     if [ $number_of_nodes -le 2 ]; then
                         change_master_score "$target" "$CAN_PROMOTE"
@@ -1531,7 +1563,13 @@ set_sync_mode() {
         exec_with_retry 0 reload_conf
     fi
 }
-
+set_sync_mode2(){
+  ocf_log info "Setup $1, $2 into sync mode."
+  runasowner -q err "echo \"synchronous_standby_names = '2(\\\"$1\\\",\\\"$2\\\")'\" > \"$REP_MODE_CONF\""
+  [ "$RE_CONTROL_SLAVE" = "false" ] && RE_CONTROL_SLAVE="true"
+  ocf_log info `cat $REP_MODE_CONF`
+  exec_with_retry 0 reload_conf
+}
 reload_conf() {
     # Invoke pg_ctl
     runasowner "$OCF_RESKEY_pgctl -D $OCF_RESKEY_pgdata reload"
