@@ -1105,7 +1105,7 @@ SYNCHRONOUS_NODE=`exec_sql "${GET_SYNCHRONOUS_NODE}"`
 
 
 sync_node_latency=$(ping -c 1 $SYNCHRONOUS_NODE | awk -F"=| " 'NR==2 {print $11}')
-l_sync_node_latency=5
+
 
 
 		ping_value=$(ping -c 1 $1 | awk -F"=| " 'NR==2 {print $11}')
@@ -1113,8 +1113,8 @@ l_sync_node_latency=5
       ocf_log info "ping_value: $ping_value"
       ocf_log info "sync_node_latency : $sync_node_latency"
 
-      #if [ \("$ping_value" -lt "$l_sync_node_latency" -a "$flag" != 0 \) ]; then
-      if [ "$SYNCHRONOUS_NODE" = "charlie" ]; then
+      if [ \("$ping_value" -lt "$(("$l_sync_node_latency"-50))" -a "$flag" != 0 \) ]; then
+      
 					echo "swap"
           flag=0
       else
